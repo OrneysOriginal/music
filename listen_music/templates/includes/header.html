@@ -1,0 +1,35 @@
+{% load static %}
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {% with request.resolver_match.view_name as view_name %}
+            {% if request.user.is_authenticated or request.session.username %}
+              <li class="nav-item active">
+                <a class="nav-link {% if view_name == "music:mainpage" %}active{% endif %}" href="{% url "music:mainpage" %}">Главная</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link {% if view_name == "person:logout" %}active{% endif %}" href="{% url "person:logout" %}">Выйти</a>
+              </li>
+              {% if not request.session.username %}
+                <li class="nav-item active">
+                  <a class="nav-link {% if view_name == "music:add_music" %}active{% endif %}" href="{% url "music:add_music" %}">Добавить музыку</a>
+                </li>
+              {% endif %}
+            {% endif %}
+            {% if not request.user.is_authenticated and not request.session.username %}
+              <li class="nav-item active">
+                <a class="nav-link {% if view_name == "person:registration" %}active{% endif %}" href="{% url "person:registration" %}">Зарегестрироваться</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link {% if view_name == "person:login" %}active{% endif %}" href="{% url "person:login" %}">Войти</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link {% if view_name == "person:guest" %}active{% endif %}" href="{% url "person:guest" %}">Войти как гость</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+        </ul>
+      </div>
+    </nav>
+  </header>

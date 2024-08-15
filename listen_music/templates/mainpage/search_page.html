@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <form action="{% url 'music:search' %}" method="get">
+      <div class="input-group mb-3">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Поиск</button>
+        <input name="text" type="text" class="form-control" placeholder="Поиск музыки" aria-label="Example text with button addon" aria-describedby="button-addon1">
+      </div>
+    </form>
+    {% for music in content %}
+        <button type="button" class="btn btn-primary position-relative">
+          <h3>
+            {{ music.name }}
+          </h3>
+          <audio controls="controls" preload="auto" src="{{ music.music.url }}"></audio>
+        </button>
+        <button type="button" class="btn btn-success">👍</button>
+        <button type="button" class="btn btn-danger">👎</button>
+    {% endfor %}
+</div>
+{% endblock %}

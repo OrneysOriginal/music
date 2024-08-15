@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    {% if request.user.is_authenticated %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">{{ field.help_text }}</span>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+</div>
+{% endif %}
+{% endblock %}
