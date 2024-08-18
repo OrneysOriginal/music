@@ -19,7 +19,7 @@
             {% endif %}
             {% if not request.user.is_authenticated and not request.session.username %}
               <li class="nav-item active">
-                <a class="nav-link {% if view_name == "person:registration" %}active{% endif %}" href="{% url "person:registration" %}">Зарегестрироваться</a>
+                <a class="nav-link {% if view_name == "person:registration" %}active{% endif %}" href="{% url "person:registration" %}">Зарегистрироваться</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link {% if view_name == "person:login" %}active{% endif %}" href="{% url "person:login" %}">Войти</a>
