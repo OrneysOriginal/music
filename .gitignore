@@ -3,3 +3,4 @@ venv
 pyproject.toml
 /media
 .idea
+__pycache__
