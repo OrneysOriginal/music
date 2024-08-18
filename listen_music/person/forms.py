@@ -1,5 +1,5 @@
 from django import forms
-from django.core.validators import validate_slug, validate_email
+from django.core.validators import validate_email
 
 
 class UserRegistrationForm(forms.Form):
@@ -7,7 +7,6 @@ class UserRegistrationForm(forms.Form):
         max_length=255,
         label="Введите имя пользователя",
         widget=forms.TextInput(),
-        validators=[validate_slug],
     )
     password = forms.CharField(
         min_length=8,
@@ -27,7 +26,6 @@ class UserLoginForm(forms.Form):
         max_length=255,
         label="Введите имя пользователя",
         widget=forms.TextInput(),
-        validators=[validate_slug],
     )
     password = forms.CharField(
         max_length=64, widget=forms.PasswordInput(), label="Введите пароль"
@@ -39,5 +37,4 @@ class GuestLoginForm(forms.Form):
         max_length=255,
         label="Введите имя пользователя",
         widget=forms.TextInput(),
-        validators=[validate_slug],
     )
