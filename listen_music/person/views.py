@@ -127,7 +127,7 @@ class LoginGuestView(View):
                 return redirect(reverse("music:mainpage"))
 
             error(self.request, "Введите корректные данные")
-            return redirect(reverse("person:login"))
+            return redirect(reverse("person:guest"))
 
         error(self.request, "Вы аутентифицированы")
         return redirect(reverse("music:mainpage"))
