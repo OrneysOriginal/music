@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, reverse, redirect
 from django.views import View
 from django.contrib.messages import error, success
+from django.core.cache import cache
 from music.models import Music
 
 from music.forms import MusicUploadForm
@@ -14,9 +15,13 @@ class MainPageMusic(DataMixin):
         if self.request.user.is_authenticated or self.request.session.get(
             "username"
         ):
-            paginator = Paginator(
-                Music.objects.get_queryset(), self.paginate_by
-            )
+            if cache.get('paginator') is None:
+                paginator = Paginator(
+                    Music.objects.get_queryset(), self.paginate_by
+                )
+                cache.set('paginator', paginator, 60)
+            else:
+                paginator = cache.get('paginator')
             page = self.request.GET.get("page") or 1
             context = {
                 "titile": "Главная страница",
@@ -33,9 +38,7 @@ class SearchPageView(DataMixin):
         if self.request.user.is_authenticated or self.request.session.get(
             "username"
         ):
-            content = self.request.GET.get("text") or self.request.GET.get(
-                "search"
-            )
+            content = self.request.GET.get("text") or ''
             paginator = Paginator(
                 Music.objects.filter(name__contains=content), self.paginate_by
             )
